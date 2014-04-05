@@ -17,6 +17,27 @@ Usage
 
 ----------
 
+Videos in paper
+---------------
+
+Scene 1 video in paper
+
+> https://nclab.github.io/pso.evac/Scene1.avi
+
+Scene 2 video in paper
+
+> https://nclab.github.io/pso.evac/Scene2.avi
+
+Scene 3 video in paper
+
+> https://nclab.github.io/pso.evac/Scene3.avi
+
+Scene 4 video in paper
+
+> https://nclab.github.io/pso.evac/Scene4.avi
+
+----------
+
 Use
 ---
 

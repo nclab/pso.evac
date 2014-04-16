@@ -1,4 +1,4 @@
-function [result]=Evacuation(scene_num , outfile , plot_type)
+function Evacuation(scene_num , outfile , plot_type)
 %   Evacuation simulator
 %   scene_num : indicate the scene number for loading
 %   outfile   : save simulation data
@@ -33,15 +33,17 @@ function [result]=Evacuation(scene_num , outfile , plot_type)
     C_obs = 0.1;    
 
 %   save .AVI file & plot figure
-    if(plot_type == 1 || plot_type == 2)
+    if(plot_type>0)
         fig = figure();
         set(gca,'unit','pixels');
         set(gcf,'Position',[100 50 1080 800]);
         set(gca,'Position',[100 100 Area*1.5]);
         box on;
         hold on;
-    elseif(plot_type == 3)
-        m = avifile([outfile '.avi']);
+    end
+    if(plot_type == 3)
+        m = VideoWriter([outfile '.avi']);
+        open(m);
     end        
     
 %   Data logger
@@ -74,11 +76,13 @@ function [result]=Evacuation(scene_num , outfile , plot_type)
         evaluation(i);
     end
     if(plot_type==1)
-        plot_frame
+        plot_frame;
         pause(0.1);
     elseif(plot_type==2)
-        plot_frame
+        plot_frame;
         pause;
+    elseif(plot_type==3)
+        plot_frame;
     end
         
     %   ---- evoluation start ----
@@ -107,7 +111,9 @@ function [result]=Evacuation(scene_num , outfile , plot_type)
         elseif(plot_type==2)
             plot_frame
             pause;
-        end
+        elseif(plot_type==3)
+            plot_frame
+        end           
         if(escape_count==popsize)
             break;
         end
@@ -127,7 +133,7 @@ function [result]=Evacuation(scene_num , outfile , plot_type)
     if(plot_type==3)
         close(m);
     end
-    result = His.escape_t;
+    
     disp('Simulation end.');
 %%%%  subfunction routines %%%%
     function fit = fitness(pos)
@@ -353,8 +359,8 @@ function [result]=Evacuation(scene_num , outfile , plot_type)
         ylim([-5,Area(2)])                
 
         if(plot_type==3)
-            F = getframe(gca);
-            addframe(m,F);
+            F = getframe(gca);            
+            writeVideo(m,F);
         end
     end
 end
